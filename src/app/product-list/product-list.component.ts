@@ -12,21 +12,26 @@ export class ProductListComponent implements OnInit {
   productList: ProductList = { products: [], total: 0, skip: 0, limit: 0 };
   p: number = 1;
 
-  constructor(private http: HttpClient) {}
-  ngOnInit(): void {
-    this.http
-      .get<ProductList>('https://dummyjson.com/products')
-      .subscribe((data) => {
-        this.productList = data;
-        console.log(this.productList);
-      });
-  }
-
   drop(event: CdkDragDrop<string[]>) {
+    if (this.p > 1) {
+      event.previousIndex += (this.p - 1) * 9;
+      event.currentIndex += (this.p - 1) * 9;
+    }
     moveItemInArray(
       this.productList.products,
       event.previousIndex,
       event.currentIndex
     );
+  }
+
+  constructor(private http: HttpClient) {}
+  ngOnInit(): void {
+    this.http
+      .get<ProductList>('https://dummyjson.com/products')
+      .subscribe((data) => {
+        // API'den gelen verileri productList nesnesine atamak
+        this.productList = data;
+        console.log(this.productList);
+      });
   }
 }
