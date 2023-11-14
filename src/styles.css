@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+.thumbnail img {
+  object-fit: contain;
+  width: 100%;
+}
+.overflow-ellipsis {
+  white-space: nowrap; /* Metni satıra sığdırma */
+  overflow: hidden; /* Taşan kısmı gizleme */
+  text-overflow: ellipsis; /* Taşan kısmın yerine üç nokta ekleyerek gösterme */
+  width: 100%; /* İstenilen maksimum genişlik */
+}

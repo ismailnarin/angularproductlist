@@ -1,0 +1,46 @@
+<div class="d-flex w-100 text-center">
+  <h2>Ürün Listesi</h2>
+</div>
+<div class="container">
+  <div
+    class="row"
+    *ngIf="productList.total > 0; else noProducts"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div
+      class="col-sm-4 width"
+      *ngFor="
+        let product of productList.products
+          | paginate : { itemsPerPage: 9, currentPage: p }
+      "
+      cdkDrag
+    >
+      <div class="thumbnail">
+        <div
+          style="display: flex; width: 100%; position: relative; height: 150px"
+        >
+          <img [src]="product.images[0]" alt="Ürün Resmi" />
+        </div>
+        <div class="caption">
+          <h3 class="overflow-ellipsis">{{ product.title }}</h3>
+          <p class="overflow-ellipsis">{{ product.description }}</p>
+          <p>Fiyat: {{ product.price }}TL</p>
+          <p>
+            <a href="#" class="btn btn-primary" role="button">Sepete Ekle</a>
+            <a href="#" class="btn btn-default" role="button">Detaylar</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <pagination-controls
+    previousLabel="Önceki"
+    nextLabel="Sonraki"
+    (pageChange)="p = $event"
+  ></pagination-controls>
+
+  <ng-template #noProducts>
+    <p>Ürün bulunamadı.</p>
+  </ng-template>
+</div>
